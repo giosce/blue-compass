@@ -22,6 +22,7 @@
   "homepage": "https://github.com/giosce/blue-compass#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "ip": "^1.1.5",
     "mysql": "^2.18.1"
   }
 }

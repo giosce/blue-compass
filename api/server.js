@@ -4,6 +4,7 @@ var fs = require("fs");
 
 var mysql = require('mysql')
 
+const PORT = process.env.PORT || 8081;
 
 const db_host = process.env.DB_HOST;
 const db_user = process.env.DB_USER;
@@ -11,14 +12,9 @@ const db_pwd = process.env.DB_PWD;
 const db_name = process.env.DB_NAME;
 //console.log('Your database is %', db_name);
 
-/*
-var connection = mysql.createConnection({
-  host: db_host,
-  user: db_user,
-  password: db_pwd,
-  database: db_name
-})
-*/
+
+var ip = require("ip");
+console.log(ip.address());
 
 //connection.timeout = 0;
 
@@ -49,11 +45,11 @@ app.get('/districts', function (req, res) {
 })
 
 
-var server = app.listen(8081, function () {
+var server = app.listen(PORT, function () {
    var host = server.address().address
    var port = server.address().port
    //connection.connect()
-   console.log("Example app listening at http://%s:%s", host, port)
+   console.log("App listening at http://%s:%s", host, port)
 })
 
 // when shutdown signal is received, do graceful shutdown
