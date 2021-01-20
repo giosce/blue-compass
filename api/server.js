@@ -13,8 +13,8 @@ const db_name = process.env.DB_NAME;
 //console.log('Your database is %', db_name);
 
 
-//var ip = require("ip");
-//console.log(ip.address());
+var ip = require("ip");
+console.log(ip.address());
 
 //connection.timeout = 0;
 
