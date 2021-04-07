@@ -44,6 +44,45 @@ app.get('/districts', function (req, res) {
 	})
 })
 
+app.get('/congressional/results', function (req, res) {
+	query = "select year, district, sum(dem_votes), sum(rep_votes) from state_election_results where district like 'CD%'";
+	
+	year = req.query.year;
+	console.log('year: ' + year);
+	if (year != undefined) {
+		query += " where year = '" + year + "'";
+	}
+	query += " group by year, district order by year, district";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/congressional/turnout', function (req, res) {
+	query = "select year, cd, sum(registered_voters), sum(ballots_cast) from state_ballots_cast a, municipal_list_new b where a.muni_code = b.muni_code";
+	
+	year = req.query.year;
+	console.log('year: ' + year);
+	if (year != undefined) {
+		query += " and year = '" + year + "'";
+	}
+	query += " group by year, cd order by year, cd";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
 
 var server = app.listen(PORT, function () {
    var host = server.address().address
