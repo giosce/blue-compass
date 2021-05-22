@@ -45,7 +45,7 @@ app.get('/districts', function (req, res) {
 })
 
 app.get('/congress/results', function (req, res) {
-	query = "select year, district, sum(dem_votes), sum(rep_votes) from state_election_results where district like 'CD%'";
+	query = "select year, district, sum(dem_votes) as dem_votes, sum(rep_votes) as rep_votes from state_election_results where district like 'CD%'";
 	
 	year = req.query.year;
 	console.log('year: ' + year);
@@ -65,7 +65,7 @@ app.get('/congress/results', function (req, res) {
 })
 
 app.get('/congress/turnout', function (req, res) {
-	query = "select year, cd, sum(registered_voters), sum(ballots_cast) from state_ballots_cast a, municipal_list_new b where a.muni_code = b.muni_code";
+	query = "select year, cd, sum(registered_voters) as registered_voters, sum(ballots_cast) as ballots_cast from state_ballots_cast a, municipal_list_new b where a.muni_code = b.muni_code";
 	
 	year = req.query.year;
 	console.log('year: ' + year);
@@ -83,6 +83,20 @@ app.get('/congress/turnout', function (req, res) {
 	  res.end(JSON.stringify(rows));	  
 	})
 })
+
+app.get('/candidates/nj/2021/pri', function (req, res) {
+	query = "select * from candidates_new where election_year='2021' and election_type='PRI' order by ld, county, office, party, slogan, name";
+		
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
 
 var server = app.listen(PORT, function () {
    var host = server.address().address
