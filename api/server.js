@@ -97,6 +97,19 @@ app.get('/candidates/nj/2021/pri', function (req, res) {
 	})
 })
 
+app.get('/state/nj/legislature/candidates', function (req, res) {
+	query = "select election_year, election_type, county, ld, office, name, party, incumbent, first_elected, address, town, zip, state, email, website, facebook, twitter, slogan, endorsements, endorse_link, endorse_tooltip from candidates_new where election_year='2021' and election_type='PRI' order by ld, county, office, party, slogan, name";
+		
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
 app.get('getNJStateCandidates', function (req, res) {
 	query = "select election_year, election_type, county, ld, office, name, party, incumbent, first_elected, address, town, zip, state, email, website, facebook, twitter, slogan, endorsements, endorse_link, endorse_tooltip from candidates_new where election_year='2021' and election_type='PRI' order by ld, county, office, party, slogan, name";
 		
