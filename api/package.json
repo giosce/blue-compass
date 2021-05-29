@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/giosce/blue-compass#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ip": "^1.1.5",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "node-mysql": "^0.4.2"
   }
 }
