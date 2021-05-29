@@ -3,6 +3,9 @@ var app = express();
 var fs = require("fs");
 var mysql = require('mysql')
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
+
 //require('dotenv').config();
 // above gives an error in Heroku. To use .env locally run node -r dotenv/config your_script.js
 
@@ -275,7 +278,7 @@ app.get('/election-results/congressional-districts', function (req, res) {
 app.get('/election-results/statewide', function (req, res) {
 	query = "select year, office, sum(dem_votes) as dem_votes, sum(rep_votes) as rep_votes"
 		  + " from state_election_results"
-		  + " where office in ('President', 'Governor', 'US Senate'";
+		  + " where office in ('President', 'Governor', 'US Senate')";
 		
 	year = req.query.year;
 
@@ -345,6 +348,9 @@ var server = app.listen(PORT, function () {
    //connection.connect()
    console.log("App listening at http://%s:%s", host, port)
 })
+
+
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // when shutdown signal is received, do graceful shutdown
 /*

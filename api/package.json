@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "swagger-autogen": "node swagger.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ip": "^1.1.5",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "swagger-autogen": "^2.6.3",
+    "swagger-ui-express": "^4.1.4"
   }
 }
