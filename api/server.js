@@ -1,9 +1,10 @@
 var express = require('express');
 var app = express();
 var fs = require("fs");
-require('dotenv').config();
-
 var mysql = require('mysql')
+
+//require('dotenv').config();
+// above gives an error in Heroku. To use .env locally run node -r dotenv/config your_script.js
 
 const PORT = process.env.PORT || 8081;
 
