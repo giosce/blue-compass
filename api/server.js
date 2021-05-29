@@ -3,8 +3,8 @@ var app = express();
 var fs = require("fs");
 var mysql = require('mysql')
 
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger_output.json')
+//const swaggerUi = require('swagger-ui-express')
+//const swaggerFile = require('./swagger_output.json')
 
 //require('dotenv').config();
 // above gives an error in Heroku. To use .env locally run node -r dotenv/config your_script.js
@@ -350,7 +350,7 @@ var server = app.listen(PORT, function () {
 })
 
 
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+//app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 // when shutdown signal is received, do graceful shutdown
 /*
