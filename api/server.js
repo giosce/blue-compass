@@ -143,7 +143,10 @@ app.get('/voter-registrations/legislative-districts', cors(), function (req, res
 })
 
 app.get('/candidates/legislative-districts', cors(), function (req, res) {
-	query = "select * from candidates_new where ifnull(ld, '') <> ''";
+	query =  "select ld, election_year, election_type, office, vote_for, term, name, party,";
+	query += " incumbent, address, town, zip, state, email, website, facebook, twitter, first_elected,";
+	query += " endorsements, last_elected, slogan";
+	query += " from candidates_new where ifnull(ld, '') <> ''";
 		
 	year = req.query.year;
 	type = req.query.type; // PRI or GEN
@@ -154,7 +157,7 @@ app.get('/candidates/legislative-districts', cors(), function (req, res) {
 	if (type != undefined) {
 		query += " and election_type = '" + type + "'";
 	}
-	query += " order by ld, office, party, slogan, name";
+	query += " order by ld, election_year, election_type, office, party, slogan, name";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -166,7 +169,10 @@ app.get('/candidates/legislative-districts', cors(), function (req, res) {
 })
 
 app.get('/candidates/congressional-districts', cors(), function (req, res) {
-	query = "select * from candidates_new where ifnull(cd, '') <> ''";
+	query =  "select cd, election_year, election_type, office, vote_for, term, name, party,";
+	query += " incumbent, address, town, zip, state, email, website, facebook, twitter, first_elected,";
+	query += " endorsements, last_elected, slogan";
+	query += " from candidates_new where ifnull(cd, '') <> ''";
 		
 	year = req.query.year;
 	type = req.query.type; // PRI or GEN
@@ -191,14 +197,17 @@ app.get('/candidates/congressional-districts', cors(), function (req, res) {
 })
 
 app.get('/candidates/counties', cors(), function (req, res) {
-	query = "select * from candidates_new where ifnull(county,'') <> ''";
+	query =  "select county, election_year, election_type, office, vote_for, term, name, party,";
+	query += " incumbent, address, town, zip, state, email, website, facebook, twitter, first_elected,";
+	query += " endorsements, last_elected, slogan";
+	query += " from candidates_new where ifnull(county,'') <> ''";
 		
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
 		query += " and election_year = '" + year + "'";
 	}
-	query += " order by county, election_year, office, month";
+	query += " order by county, election_year, election_type, office, party, slogan, name";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -213,14 +222,17 @@ app.get('/candidates/counties', cors(), function (req, res) {
 
 // Governor, Federal Senators, President
 app.get('/candidates/statewide', cors(), function (req, res) {
-	query = "select * from candidates_new where office in ('Governor','President','US Senate')";
+	query =  "select 'statewide', election_year, election_type, office, vote_for, term, name, party,";
+	query += " incumbent, address, town, zip, state, email, website, facebook, twitter, first_elected,";
+	query += " endorsements, last_elected, slogan";
+	query += " from candidates_new where office in ('Governor','President','US Senate')";
 		
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
 		query += " and election_year = '" + year + "'";
 	}
-	query += " order by office, election_year, month";
+	query += " order by election_year, election_type, office, party, slogan, name";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
