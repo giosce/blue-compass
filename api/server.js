@@ -177,7 +177,7 @@ app.get('/candidates/congressional-districts', cors(), function (req, res) {
 	if (type != undefined) {
 		query += " and election_type = '" + type + "'";
 	}
-	query += " order by cd, office, party, slogan, name";
+	query += " order by cd, election_year, election_type, office, party, slogan, name";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -196,9 +196,9 @@ app.get('/candidates/counties', cors(), function (req, res) {
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
-		query += " and year = '" + year + "'";
+		query += " and election_year = '" + year + "'";
 	}
-	query += " order by county, office, year, month";
+	query += " order by county, election_year, office, month";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -218,9 +218,9 @@ app.get('/candidates/statewide', cors(), function (req, res) {
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
-		query += " and year = '" + year + "'";
+		query += " and election_year = '" + year + "'";
 	}
-	query += " order by office, year, month";
+	query += " order by office, election_year, month";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -300,6 +300,7 @@ app.get('/election-results/statewide', cors(), function (req, res) {
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
