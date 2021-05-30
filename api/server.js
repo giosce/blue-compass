@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var mysql = require('mysql')
+var cors = require('cors')
 
 //const swaggerUi = require('swagger-ui-express')
 //const swaggerFile = require('./swagger_output.json')
@@ -349,6 +350,7 @@ var server = app.listen(PORT, function () {
    console.log("App listening at http://%s:%s", host, port)
 })
 
+app.use(cors())
 
 //app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
