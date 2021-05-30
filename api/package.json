@@ -1,6 +1,6 @@
 {
   "name": "blue-compass",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "backend for electoral data.",
   "main": "server.js",
   "scripts": {
