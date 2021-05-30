@@ -46,6 +46,7 @@ app.get('/districts', function (req, res) {
 
 	  //rows.forEach(element => console.log(element));
 	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -117,8 +118,7 @@ app.get('/voter-registrations/congressional-districts', cors(), function (req, r
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
-	  //rows.forEach(element => console.log(element));
-	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -137,8 +137,7 @@ app.get('/voter-registrations/legislative-districts', cors(), function (req, res
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
-	  //rows.forEach(element => console.log(element));
-	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -160,6 +159,8 @@ app.get('/candidates/legislative-districts', cors(), function (req, res) {
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
+	  
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -184,19 +185,20 @@ app.get('/candidates/congressional-districts', cors(), function (req, res) {
 
 	  //rows.forEach(element => console.log(element));
 	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
 
-app.get('/candidates/counties', function (req, res) {
-	query = "select * from state_voter_registrations where district like 'LD%'";
+app.get('/candidates/counties', cors(), function (req, res) {
+	query = "select * from candidates_new where ifnull(county,'') <> ''";
 		
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
 		query += " and year = '" + year + "'";
 	}
-	query += " order by district, year, month";
+	query += " order by county, office, year, month";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
@@ -211,14 +213,14 @@ app.get('/candidates/counties', function (req, res) {
 
 // Governor, Federal Senators, President
 app.get('/candidates/statewide', cors(), function (req, res) {
-	query = "select * from state_voter_registrations where district like 'LD%'";
+	query = "select * from candidates_new where office in ('Governor','President','US Senate')";
 		
 	year = req.query.year;
 	console.log('year: ' + year);
 	if (year != undefined) {
 		query += " and year = '" + year + "'";
 	}
-	query += " order by district, year, month";
+	query += " order by office, year, month";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
