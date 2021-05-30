@@ -103,7 +103,7 @@ app.get('/candidates/nj/2021/pri', function (req, res) {
 	})
 })
 
-app.get('/voter-registrations/congressional-districts', function (req, res) {
+app.get('/voter-registrations/congressional-districts', cors(), function (req, res) {
 	query = "select * from state_voter_registrations where district like 'CD%'";
 		
 	year = req.query.year;
@@ -123,7 +123,7 @@ app.get('/voter-registrations/congressional-districts', function (req, res) {
 	})
 })
 
-app.get('/voter-registrations/legislative-districts', function (req, res) {
+app.get('/voter-registrations/legislative-districts', cors(), function (req, res) {
 	query = "select * from state_voter_registrations where district like 'LD%'";
 		
 	year = req.query.year;
@@ -143,7 +143,7 @@ app.get('/voter-registrations/legislative-districts', function (req, res) {
 	})
 })
 
-app.get('/candidates/legislative-districts', function (req, res) {
+app.get('/candidates/legislative-districts', cors(), function (req, res) {
 	query = "select * from candidates_new where ifnull(ld, '') <> ''";
 		
 	year = req.query.year;
@@ -164,7 +164,7 @@ app.get('/candidates/legislative-districts', function (req, res) {
 	})
 })
 
-app.get('/candidates/congressional-districts', function (req, res) {
+app.get('/candidates/congressional-districts', cors(), function (req, res) {
 	query = "select * from candidates_new where ifnull(cd, '') <> ''";
 		
 	year = req.query.year;
@@ -204,12 +204,13 @@ app.get('/candidates/counties', function (req, res) {
 
 	  //rows.forEach(element => console.log(element));
 	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
 
 // Governor, Federal Senators, President
-app.get('/candidates/statewide', function (req, res) {
+app.get('/candidates/statewide', cors(), function (req, res) {
 	query = "select * from state_voter_registrations where district like 'LD%'";
 		
 	year = req.query.year;
@@ -225,12 +226,13 @@ app.get('/candidates/statewide', function (req, res) {
 
 	  //rows.forEach(element => console.log(element));
 	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
 
 // Only General Elections
-app.get('/election-results/legislative-districts', function (req, res) {
+app.get('/election-results/legislative-districts', cors(), function (req, res) {
 	query = "select year, district, office, sum(dem_votes) as dem_votes, sum(rep_votes) as rep_votes"
 		  + " from state_election_results"
 		  + " where (office like 'Assembly%' or office='NJ Senate')";
@@ -248,6 +250,7 @@ app.get('/election-results/legislative-districts', function (req, res) {
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -270,13 +273,14 @@ app.get('/election-results/congressional-districts', cors(), function (req, res)
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
-
+	  
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
 
 // Only General Elections
-app.get('/election-results/statewide', function (req, res) {
+app.get('/election-results/statewide', cors(), function (req, res) {
 	query = "select year, office, sum(dem_votes) as dem_votes, sum(rep_votes) as rep_votes"
 		  + " from state_election_results"
 		  + " where office in ('President', 'Governor', 'US Senate')";
