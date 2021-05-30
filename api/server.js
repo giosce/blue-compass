@@ -253,7 +253,7 @@ app.get('/election-results/legislative-districts', function (req, res) {
 })
 
 // Only General Elections
-app.get('/election-results/congressional-districts', function (req, res) {
+app.get('/election-results/congressional-districts', cors(), function (req, res) {
 	query = "select year, district, office, sum(dem_votes) as dem_votes, sum(rep_votes) as rep_votes"
 		  + " from state_election_results"
 		  + " where office = 'US House'";
