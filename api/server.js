@@ -317,6 +317,38 @@ app.get('/election-results/statewide', cors(), function (req, res) {
 	})
 })
 
+app.get('/representatives/congressional-districts', cors(), function (req, res) {
+	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party"
+		  + " website, votesmart, propublica, opensecret, twitter, notes"
+		  + " from representatives"
+		  + " where ifnull(cd,'') <> ''"
+	      + " order by cd";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/representatives/legislative-districts', cors(), function (req, res) {
+	query = "select ld, first_elected, last_elected, expire_on, term, office, name, party"
+		  + " website, votesmart, propublica, opensecret, twitter, notes"
+		  + " from representatives"
+		  + " where ifnull(ld,'') <> ''"
+	      + " order by ld";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
 
 app.get('/state/nj/legislature/candidates', function (req, res) {
 	query = "select election_year, election_type, county, ld, office, name, party, incumbent, first_elected, address, town, zip, state, email, website, facebook, twitter, slogan, endorsements, endorse_link, endorse_tooltip from candidates_new where election_year='2021' and election_type='PRI' order by ld, county, office, party, slogan, name";
