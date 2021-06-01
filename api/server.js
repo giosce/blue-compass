@@ -437,15 +437,15 @@ app.post('/myinfo', cors(), function (req, res) {
 	query = "select distinct county, city, municipality, street_number, street_name, zip, ward, precinct, cd, ld from alpha_voter_list_state";
 		
 	county = body.county;
-	county = body.muni;
-	county = body.addr_num;
-	county = body.address;
+	county = body.municipality;
+	county = body.number;
+	county = body.street;
 
 	if (county != undefined) {
 		query += " where county = '" + body.county + "'"
-			   + " and city = '" + body.muni + "'"
-			   + " and street_number = '" + body.addr_num + "'"
-			   + " and street_name like '" + body.address + "%'"
+			   + " and city = '" + body.municipality + "'"
+			   + " and street_number = '" + body.number + "'"
+			   + " and street_name like '" + body.street + "%'"
 	}
 	
 	//query += " order by county, muni";
