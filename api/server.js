@@ -400,8 +400,7 @@ app.get('/counties', cors(), function (req, res) {
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
-	  //rows.forEach(element => console.log(element));
-	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
@@ -414,14 +413,13 @@ app.get('/municipalities', cors(), function (req, res) {
 	if (county != undefined) {
 		query += " county = '" + county + "'";
 	}
-	query += " order by muni";
+	query += " order by county, muni";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
 
-	  //rows.forEach(element => console.log(element));
-	  //console.log('Retrieved: ', rows[0].solution)
+	  res.type('json');
 	  res.end(JSON.stringify(rows));	  
 	})
 })
