@@ -318,7 +318,7 @@ app.get('/election-results/statewide', cors(), function (req, res) {
 })
 
 app.get('/representatives/congressional-districts', cors(), function (req, res) {
-	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party"
+	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
 		  + " where ifnull(cd,'') <> ''"
@@ -334,7 +334,7 @@ app.get('/representatives/congressional-districts', cors(), function (req, res) 
 })
 
 app.get('/representatives/legislative-districts', cors(), function (req, res) {
-	query = "select ld, first_elected, last_elected, expire_on, term, office, name, party"
+	query = "select ld, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
 		  + " where ifnull(ld,'') <> ''"
@@ -383,6 +383,39 @@ app.get('/state/nj/state/candidates', function (req, res) {
 app.get('/state/nj/legislature/candidates', function (req, res) {
 	query = "select election_year, election_type, county, ld, office, name, party, incumbent, first_elected, address, town, zip, state, email, website, facebook, twitter, slogan, endorsements, endorse_link, endorse_tooltip from candidates_new where election_year='2021' and election_type='PRI' order by ld, county, office, party, slogan, name";
 		
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/counties', function (req, res) {
+	query = "select distinct county from municipal_list_new order by 1";
+		
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  //rows.forEach(element => console.log(element));
+	  //console.log('Retrieved: ', rows[0].solution)
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/municipalities', function (req, res) {
+	query = "select distinct muni_id, muni from municipal_list_new";
+		
+	county = req.query.county;
+
+	if (county != undefined) {
+		query += " county = '" + county + "'";
+	}
+	query += " order by muni";
+	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
 	  if (err) throw err
