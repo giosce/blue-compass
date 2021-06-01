@@ -21,8 +21,8 @@ const db_name = process.env.DB_NAME;
 console.log('Your database is %', db_name);
 console.log('Your database server is %', db_host);
 
-//app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());  // for local testing
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());  // for local testing
 
 var ip = require("ip");
 console.log(ip.address());
