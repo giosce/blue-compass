@@ -411,7 +411,7 @@ app.get('/municipalities', cors(), function (req, res) {
 	county = req.query.county;
 
 	if (county != undefined) {
-		query += " county = '" + county + "'";
+		query += " where county = '" + county + "'";
 	}
 	query += " order by county, muni";
 	
