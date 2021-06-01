@@ -393,7 +393,7 @@ app.get('/state/nj/legislature/candidates', function (req, res) {
 	})
 })
 
-app.get('/counties', function (req, res) {
+app.get('/counties', cors(), function (req, res) {
 	query = "select distinct county from municipal_list_new order by 1";
 		
 	console.log('query: ' + query);
@@ -406,8 +406,8 @@ app.get('/counties', function (req, res) {
 	})
 })
 
-app.get('/municipalities', function (req, res) {
-	query = "select distinct muni_id, muni from municipal_list_new";
+app.get('/municipalities', cors(), function (req, res) {
+	query = "select county, muni_id, muni, cd, ld from municipal_list_new";
 		
 	county = req.query.county;
 
