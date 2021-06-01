@@ -4,6 +4,8 @@ var fs = require("fs");
 var mysql = require('mysql')
 var cors = require('cors')
 
+const bodyParser = require('body-parser');
+
 //const swaggerUi = require('swagger-ui-express')
 //const swaggerFile = require('./swagger_output.json')
 
@@ -18,6 +20,9 @@ const db_pwd = process.env.DB_PWD;
 const db_name = process.env.DB_NAME;
 console.log('Your database is %', db_name);
 console.log('Your database server is %', db_host);
+
+//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());  // for local testing
 
 var ip = require("ip");
 console.log(ip.address());
@@ -424,6 +429,38 @@ app.get('/municipalities', cors(), function (req, res) {
 	})
 })
 
+
+app.post('/myinfo', cors(), function (req, res) {
+	const body = req.body;
+	console.log(body);
+	
+	query = "select distinct county, city, municipality, street_number, street_name, zip, ward, precinct, cd, ld from alpha_voter_list_state";
+		
+	county = body.county;
+	county = body.muni;
+	county = body.addr_num;
+	county = body.address;
+
+	if (county != undefined) {
+		query += " where county = '" + body.county + "'"
+			   + " and city = '" + body.muni + "'"
+			   + " and street_number = '" + body.addr_num + "'"
+			   + " and street_name like '" + body.address + "%'"
+	}
+	
+	//query += " order by county, muni";
+	
+	console.log('query: ' + query);
+
+	//res.status(200).end();
+
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
 
 var server = app.listen(PORT, function () {
    var host = server.address().address
