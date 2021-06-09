@@ -486,17 +486,15 @@ app.post('/myinfo', cors(), function (req, res) {
         return defered.promise;
       }
 
-	  my_info = "my_info:" + JSON.stringify(rows[0]);
-	  console.log(my_info);
+	  my_info = JSON.stringify(rows[0]);
 	  my_info = my_info.replace("}","");
 	  
       Q.all([getRepresentatives(),getCandidates()]).then(function(results){
 		office_holders = ",\"my_office_holders\":" + JSON.stringify(results[0][0]);  
-		console.log(office_holders);
 		candidates = ",\"my_candidates\":" + JSON.stringify(results[1][0]);  
-		console.log(candidates);
+		console.log(my_info+office_holders+candidates+"}");
 		res.type('json');
-	  res.end(my_info+office_holders+candidates+"}");
+	    res.end(my_info+office_holders+candidates+"}");
       });
 	});
 })
