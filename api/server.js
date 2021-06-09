@@ -3,6 +3,7 @@ var app = express();
 var fs = require("fs");
 var mysql = require('mysql')
 var cors = require('cors')
+var Q = require('Q');
 
 const bodyParser = require('body-parser');
 
@@ -20,9 +21,6 @@ const db_pwd = process.env.DB_PWD;
 const db_name = process.env.DB_NAME;
 console.log('Your database is %', db_name);
 console.log('Your database server is %', db_host);
-
-app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());  // for local testing
 
 var ip = require("ip");
 console.log(ip.address());
@@ -430,11 +428,15 @@ app.get('/municipalities', cors(), function (req, res) {
 })
 
 
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());  // for local testing
+
+
 app.post('/myinfo', cors(), function (req, res) {
 	const body = req.body;
 	console.log(body);
 	
-	query = "select distinct county, city, municipality, street_number, street_name, zip, ward, precinct, cd, ld from alpha_voter_list_state";
+	my_info_query = "select distinct county, city, municipality, street_number, street_name, zip, ward, precinct, cd, ld from alpha_voter_list_state";
 		
 	county = body.county;
 	county = body.municipality;
@@ -442,24 +444,62 @@ app.post('/myinfo', cors(), function (req, res) {
 	county = body.street;
 
 	if (county != undefined) {
-		query += " where county = '" + body.county + "'"
+		my_info_query += " where county = '" + body.county + "'"
 			   + " and city = '" + body.municipality + "'"
 			   + " and street_number = '" + body.number + "'"
 			   + " and street_name like '" + body.street + "%'"
 	}
 	
-	//query += " order by county, muni";
+	console.log('my_info_query: ' + my_info_query);
+
 	
-	console.log('query: ' + query);
-
-	//res.status(200).end();
-
-	pool.query(query, function (err, rows, fields) {
+	pool.query(my_info_query, function (err, rows, fields) {
 	  if (err) throw err
 
-	  res.type('json');
-	  res.end(JSON.stringify(rows));	  
-	})
+      // should check that I got back one row only
+	  
+	  representatives_query = "select county, ld, cd, office, name, party, first_elected, last_elected, expire_on, term" 
+	         + " from representatives where"
+			 + " ld='"+rows[0].ld+"' or cd='"+rows[0].cd+"' or county='"+rows[0].county+"'"
+			 //+ " or (muni='"+rows[0].municipality+"' and precinct='"+rows[0].precinct+"')" // needs ward too if muni
+			 + " order by sort_by";
+			 
+	  console.log(representatives_query);
+	  
+	  candidates_query = "select cd, ld, county, election_year, election_type, office, term, name, incumbent, first_elected, last_elected,"
+			 + " party, slogan, address, town, zip, state, email, website, facebook, twitter, endorsements, endorse_link"
+			 + " from candidates_new where election_year='2021' and ("
+			 + " ld='LD"+rows[0].ld+"' or cd='"+rows[0].cd+"' or county='"+rows[0].county+"'"
+			 + " or (muni='"+rows[0].municipality+"' and precinct='"+rows[0].precinct+"'))" // needs ward too if muni
+			 + " order by sort_by";
+	  
+	  console.log('candidates_query: ' + candidates_query);
+	  
+	  function getRepresentatives(){
+        var defered = Q.defer();
+        pool.query(representatives_query, defered.makeNodeResolver());
+        return defered.promise;
+      }
+
+      function getCandidates(){
+        var defered = Q.defer();
+        pool.query(candidates_query, defered.makeNodeResolver());
+        return defered.promise;
+      }
+
+	  my_info = "my_info:" + JSON.stringify(rows[0]);
+	  console.log(my_info);
+	  my_info = my_info.replace("}","");
+	  
+      Q.all([getRepresentatives(),getCandidates()]).then(function(results){
+		office_holders = ",\"my_office_holders\":" + JSON.stringify(results[0][0]);  
+		console.log(office_holders);
+		candidates = ",\"my_candidates\":" + JSON.stringify(results[1][0]);  
+		console.log(candidates);
+		res.type('json');
+	  res.end(my_info+office_holders+candidates+"}");
+      });
+	});
 })
 
 var server = app.listen(PORT, function () {
@@ -468,6 +508,7 @@ var server = app.listen(PORT, function () {
    //connection.connect()
    console.log("App listening at http://%s:%s", host, port)
 })
+
 
 app.use(cors())
 
