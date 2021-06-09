@@ -3,7 +3,7 @@ var app = express();
 var fs = require("fs");
 var mysql = require('mysql')
 var cors = require('cors')
-var Q = require('Q');
+var Q = require('q');
 
 const bodyParser = require('body-parser');
 
@@ -24,6 +24,9 @@ console.log('Your database server is %', db_host);
 
 var ip = require("ip");
 console.log(ip.address());
+
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());  // for local testing
 
 //connection.timeout = 0;
 
@@ -426,10 +429,6 @@ app.get('/municipalities', cors(), function (req, res) {
 	  res.end(JSON.stringify(rows));	  
 	})
 })
-
-
-app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());  // for local testing
 
 
 app.post('/myinfo', cors(), function (req, res) {
