@@ -26,7 +26,7 @@ var ip = require("ip");
 console.log(ip.address());
 
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());  // for local testing
+app.use(bodyParser.urlencoded());  // for local testing
 
 //connection.timeout = 0;
 
@@ -438,15 +438,29 @@ app.post('/myinfo', cors(), function (req, res) {
 	my_info_query = "select distinct county, city, municipality, street_number, street_name, zip, ward, precinct, cd, ld from alpha_voter_list_state";
 		
 	county = body.county;
-	county = body.municipality;
-	county = body.number;
-	county = body.street;
+	municipality = body.municipality;
+	street_number = body.street_number;
+	street_name = body.street_name;
+	first_name = body.first_name;
+	last_name = body.last_name;
+	date_of_birth = body.date_of_birth;
 
-	if (county != undefined) {
+	if (county && municipality) {
 		my_info_query += " where county = '" + body.county + "'"
-			   + " and city = '" + body.municipality + "'"
-			   + " and street_number = '" + body.number + "'"
-			   + " and street_name like '" + body.street + "%'"
+			   + " and city = '" + body.municipality + "'";
+	} else {
+		console.log("ERROR: missing input parameters");
+	}
+	
+	if (street_number && street_name) {
+		my_info_query += " and street_number = '" + street_number + "'"
+			   + " and street_name like '" + street_name + "%'";
+	} else if(first_name && last_name && date_of_birth) {
+		my_info_query += " and first_name = '" + first_name + "'"
+			   + " and last_name = '" + last_name + "'"
+			   + " and dob = '" + date_of_birth + "'"; // mm/dd/yyyy
+	} else {
+		console.log("ERROR: missing input parameters");
 	}
 	
 	console.log('my_info_query: ' + my_info_query);
