@@ -1,0 +1,721 @@
+swagger: '2.0'
+info:
+  description: This is the API documentation and access tool for BlueCompass.
+  version: 1.0.0
+  title: Swagger Blue Compass
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: blue-compass.herokuapp.com
+schemes:
+  - http
+  - https
+tags:
+  - name: Election Results
+    description: Election Results for NJ Congressional, Legislative, County and Statewide
+      races
+  - name: Representatives
+    description: 'Representatives for NJ Congressional, Legislative, County and Statewide offices'
+  - name: Districts
+    description: Information on NJ Congressional District and Legislative Ditricts
+  - name: Voter Registrations
+    description: Voter Registrations by NJ Congressional District and Legislative Ditricts
+  - name: Candidates
+    description: 'Candidates for NJ Congressional, Legislative, County and Statewide races'
+  - name: User
+    description: User Electoral Data
+  - name: Info
+    description: Reference Data like counties, municipalities, etc...
+  - name: Party
+    description: Endpoints to get party committees (State, County, Municipal) information
+paths:
+  /candidates/congressional-districts:
+    get:
+      tags:
+        - Candidates
+      summary: NJ Congressional Districts  latest election candidates
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+          enum: [PRI, GEN]
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Candidate'
+        '405':
+          description: Invalid input
+  /candidates/legislative-districts:
+    get:
+      tags:
+        - Candidates
+      summary: NJ Legislative Districts latest election candidates
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: type
+          in: query
+          description: Type of election (PRI or GEN) for which retrieve the data
+          required: false
+          type: string
+          enum: [PRI, GEN]
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Candidate'
+        '405':
+          description: Invalid input
+  /candidates/counties:
+    get:
+      tags:
+        - Candidates
+      summary: NJ Counties  latest election candidates
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: type
+          in: query
+          description: Type of election (PRI or GEN) for which retrieve the data
+          required: false
+          type: string
+          enum: [PRI, GEN]
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Candidate'
+        '405':
+          description: Invalid input
+  /candidates/statewide:
+    get:
+      tags:
+        - Candidates
+      summary: NJ Statewide latest election candidates
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: type
+          in: query
+          description: Type of election (PRI or GEN) for which retrieve the data
+          required: false
+          type: string
+          enum: [PRI, GEN]
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Candidate'
+        '405':
+          description: Invalid input
+  /election-results/congressional-districts:
+    get:
+      tags:
+        - Election Results
+      summary: NJ Congressional Districts election results
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  /election-results/legislative-districts:
+    get:
+      tags:
+        - Election Results
+      summary: NJ Legislative Districts election results
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  /election-results/statewide:
+    get:
+      tags:
+        - Election Results
+      summary: 'NJ Statewide Election (Governor, US Senator, President) results'
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+      responses:
+        '200':
+          description: valid response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        '400':
+          description: Invalid status value
+        '405':
+          description: Invalid input
+  /voter-registrations/congressional-districts:
+    get:
+      tags:
+        - Voter Registrations
+      summary: NJ Congressional District voter registrations
+      description: Returns the Voter Registrations by NJ Congressional Districts.
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VoterRegistration'
+        '400':
+          description: Invalid tag value
+  /voter-registrations/legislative-districts:
+    get:
+      tags:
+        - Voter Registrations
+      summary: NJ Legislative District voter registrations
+      description: Returns the Voter Registrations by NJ Legislative Districts.
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: year
+          in: query
+          description: Year for which retrieve the data
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/VoterRegistration'
+        '400':
+          description: Invalid tag value          
+  /representatives/legislative-districts:
+    get:
+      tags:
+        - Representatives
+      summary: NJ Legislative District Representatives
+      description: Returns the Representatives of NJ Legislative Districts.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Representative'
+        '400':
+          description: Invalid tag value          
+  /representatives/congressional-districts:
+    get:
+      tags:
+        - Representatives
+      summary: NJ Congressional District Representatives
+      description: Returns the Representatives of NJ Congressional Districts.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Representative'
+        '400':
+          description: Invalid tag value          
+  /representatives/counties:
+    get:
+      tags:
+        - Representatives
+      summary: NJ Counties Office Holders
+      description: Returns the Office Holders of NJ Counties (Commissioners, Clerks, Sheriffs, Surrogates, Executives).
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Representative'
+        '400':
+          description: Invalid tag value          
+  /congressional-districts:
+    get:
+      tags:
+        - Districts
+      summary: NJ Congressional District information
+      description: Returns information about NJ Congressional Districts.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/District'
+        '400':
+          description: Invalid tag value          
+  /legislative-districts:
+    get:
+      tags:
+        - Districts
+      summary: NJ Legislative District information
+      description: Returns information about NJ Legislative Districts.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/District'
+        '400':
+          description: Invalid tag value          
+  /myinfo:
+    post:
+      tags:
+        - User
+      summary: Address, voting districts, office holders and candidates
+      description: Returns the address, the voting districts, office holders and candidates of the person or the address provided.
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: address
+          description: County and Municipality are mandatory. Then either provide an address (street number and name) or personal information (first name, last name and date of birth).
+          schema:
+            type: object
+            required:
+              - county
+              - municipality
+            properties:
+              county:
+                type: string
+              municipality:
+                type: string
+              street_number:
+                type: number
+              street_name:
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+              date_of_birth:
+                type: string
+                description: mm/dd/yyyy
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/MyInfo'
+        '400':
+          description: Invalid tag value
+  /municipalities:
+    get:
+      tags:
+        - Info
+      summary: NJ Municipalities
+      description: Returns all NJ Municipalities or the ones pertaining to the given county.
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: county
+          in: query
+          description: County for which retrieve the data
+          required: false
+          type: string      
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Municipality'
+        '400':
+          description: Invalid tag value                    
+  /counties:
+    get:
+      tags:
+        - Info
+      summary: NJ Counties
+      description: Returns all NJ counties.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              type: string
+        '400':
+          description: Invalid tag value                    
+  /party/county-committees:
+    get:
+      tags:
+        - Party
+      summary: Party county committees
+      description: Returns the county committees chair, bylaw, address, number of seats.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PartyCommittee'
+        '400':
+          description: Invalid tag value                    
+  /party/municipal-committees:
+    get:
+      tags:
+        - Party
+      summary: Party municipal committees
+      description: Returns the municipal committees chair, bylaw, address, number of seats.
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PartyCommittee'
+        '400':
+          description: Invalid tag value                    
+  /party/county-committee/members:
+    get:
+      tags:
+        - Party
+      summary: Party county committee members
+      description: Returns the county committee members/seats.
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: county
+          in: query
+          required: false
+          type: string
+        - name: muni
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PartyCommitteeMember'
+        '400':
+          description: Invalid tag value                    
+definitions:
+  Result:
+    type: object
+    properties:
+      year:
+        type: string
+      district:
+        type: string
+      office:
+        type: string
+      dem_votes:
+        type: number
+      rep_votes:
+        type: number
+  Candidate:
+    type: object
+    properties:
+      jurisdiction:
+        type: string
+        example: LD37
+      office:
+        type: string
+        example: 'US House'
+      term:
+        type: string
+        example: '2 years'
+      election_year:
+        type: string
+        example: '2020'
+      election_type:
+        type: string
+        example: 'PRI'
+      incumbent:
+        type: string
+        example: 'Y'
+      first_elected:
+        type: string
+        example: '2017'
+      last_elected:
+        type: string
+        example: '2017'
+      name:
+        type: string
+        example: Phil Murphy
+      party:
+        type: string
+        example: 'Dem'
+      slogan:
+        type: string
+        example: 'Regular Democratic Organization'
+      address:
+        type: string
+        example: 'Dem'
+      email:
+        type: string
+        example: 'murphy@gmail.com'        
+      website:
+        type: string
+        example: 'http://murphy.com'        
+      facebook:
+        type: string
+        example: 'http://facebook.com/murphy'        
+  VoterRegistration:
+    type: object
+    properties:
+      jurisdiction:
+        type: string
+        example: LD37
+  Representative:
+    type: object
+    properties:
+      jurisdiction:
+        type: string
+        example: LD37
+      first_elected:
+        type: string
+        example: '2018'
+      last_elected:
+        type: string
+        example: '2020'
+      expire_on:
+        type: string
+        example: '2022'
+      office:
+        type: string
+        example: Assembly
+      term:
+        type: string
+        example: Assembly
+      name:
+        type: string
+        example: Phil Murphy
+      party:
+        type: string
+        example: Dem
+  District:
+    type: object
+    properties:
+      name:
+        type: string
+        example: LD37
+  MyInfo:
+    type: object
+    properties:
+      county:
+        type: string
+        example: 'Union'
+      municipality:
+        type: string
+        example: 'Summit'
+      street_name:
+        type: string
+        example: 'Glenside Ave'
+      street_number:
+        type: string
+        example: '12'
+      zip:
+        type: string
+        example: '07901'
+      ward:
+        type: string
+        example: '02'
+      precinct:
+        type: string
+        example: '03'
+      cd:
+        type: string
+        example: '07'
+      ld:
+        type: string
+        example: '21'
+      my_representatives:
+        type: array
+        items:
+          $ref: '#/definitions/Representative'
+      my_candidates:
+        type: array
+        items:
+          $ref: '#/definitions/Candidate'
+  Municipality:
+    type: object
+    properties:
+      county:
+        type: string
+        example: Atlantic
+      muni:
+        type: string
+        example: 'Atlantic City'
+      muni_id:
+        type: string
+        example: '1001'
+      ld:
+        type: string
+        example: '02'
+      cd:
+        type: string
+        example: '01'
+  PartyCommittee:
+    type: object
+    properties:
+      county:
+        type: string        
+      last_election:
+        type: string        
+      next_election:
+        type: string        
+      seats:
+        type: string        
+      vacant_seats:
+        type: string        
+      term:
+        type: string        
+      enforce_gender:
+        type: string        
+      chair:
+        type: string        
+      email:
+        type: string        
+      phone:
+        type: string        
+      website:
+        type: string        
+      bylaws_url:
+        type: string        
+      address:
+        type: string        
+  PartyCommitteeMember:
+    type: object
+    properties:
+      county:
+        type: string        
+      muni:
+        type: string        
+      muni_id:
+        type: string        
+      ward:
+        type: string        
+      precinct:
+        type: string        
+      name:
+        type: string        
+      gender:
+        type: string        
+      email:
+        type: string        
+      role:
+        type: string        
+      address:
+        type: string        
+      zip:
+        type: string        
+      state:
+        type: string        
+      election_year:
+        type: string        

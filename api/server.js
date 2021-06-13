@@ -325,6 +325,7 @@ app.get('/election-results/statewide', cors(), function (req, res) {
 
 app.get('/representatives/congressional-districts', cors(), function (req, res) {
 	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party, "
+		  + " address, town, zip, state, email, facebook, govtrack, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
 		  + " where ifnull(cd,'') <> ''"
@@ -341,10 +342,88 @@ app.get('/representatives/congressional-districts', cors(), function (req, res) 
 
 app.get('/representatives/legislative-districts', cors(), function (req, res) {
 	query = "select ld, first_elected, last_elected, expire_on, term, office, name, party, "
+		  + " address, town, zip, state, email, facebook, govtrack, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
 		  + " where ifnull(ld,'') <> ''"
 	      + " order by ld";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/representatives/counties', cors(), function (req, res) {
+	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party, "
+		  + " address, town, zip, state, email, facebook, govtrack, "
+		  + " website, votesmart, propublica, opensecret, twitter, notes"
+		  + " from representatives"
+		  + " where ifnull(county,'') <> ''"
+		  + " and expire_on >= year(now())"
+	      + " order by county, office, expire_on, name";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/party/county-committees/members', cors(), function (req, res) {
+	query = "select county, town, muni_id, ward, precinct, "
+		  + " member_name, member_email, member_role, address, state, zip_code, "
+		  + " election_year, vacant, notes"
+		  + " from dem_committee_members where 1 = 1"
+	
+	county = req.query.county;
+	muni = req.query.muni;
+
+	if (county) {
+		query += " and county = '" + county + "'";
+	}
+	if (muni) {
+		query += " and town like '" + muni + "%'";
+	}
+	
+	query += " order by county, town, ward, precinct, gender, member_name";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/party/municipal-committees', cors(), function (req, res) {
+	query = "select county, muni, muni_id, chair_name, chair_email, website, facebook, "
+		  + " committee_email, committee_phone, bylaws, address, term_years, "
+		  + " last_election, next_election, gender_enforced, notes"
+		  + " from dem_committee where muni <> ''"
+	      + " order by county";
+	
+	console.log('query: ' + query);
+	pool.query(query, function (err, rows, fields) {
+	  if (err) throw err
+
+	  res.type('json');
+	  res.end(JSON.stringify(rows));	  
+	})
+})
+
+app.get('/party/county-committees', cors(), function (req, res) {
+	query = "select county, chair_name, chair_email, website, facebook, "
+		  + " committee_email, committee_phone, bylaws, address, term_years, "
+		  + " last_election, next_election, gender_enforced, notes"
+		  + " from dem_committee where muni = ''"
+	      + " order by county";
 	
 	console.log('query: ' + query);
 	pool.query(query, function (err, rows, fields) {
