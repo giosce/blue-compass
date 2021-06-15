@@ -477,7 +477,7 @@ paths:
             $ref: '#/definitions/PartyCommittee'
         '400':
           description: Invalid tag value                    
-  /party/county-committee/members:
+  /party/county-committees/members:
     get:
       tags:
         - Party
