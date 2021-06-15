@@ -357,6 +357,7 @@ app.get('/representatives/legislative-districts', cors(), function (req, res) {
 	})
 })
 
+
 app.get('/representatives/counties', cors(), function (req, res) {
 	query = "select county, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " address, town, zip, state, email, facebook, govtrack, "
