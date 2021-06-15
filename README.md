@@ -18,3 +18,12 @@ The MyInfo section is a very useful feature, only drawback is that it is using 2
 The Party Committees section perhaps should become bipartisan, it is very challenging to get accurate data.
 The "Election Information" section needs to be stabilized on which information to show and how.
 One recent track of activity is to build exaustive public API so that anyone can access the underlying data.
+
+# Use The Data
+The data is available in two format:
+- The http://bluecompass.org website
+- The API available at http://bluecompass.org/swagger
+
+# Run The Tools
+- The running of scripts to load the data is somehow still artisanal, the scripts in this repo may need adjustements or duplication and changes to handle new input data set (mostly because the format of the official reports change almost every year).
+- The API nodejs server is deployed on Heroku and it can be ran locally with the command "node -r dotenv/config server.js"
