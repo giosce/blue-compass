@@ -323,8 +323,9 @@ app.get('/election-results/statewide', cors(), function (req, res) {
 	})
 })
 
+// add 'CD' (of 'LD') to cd so that jurisdiction will be CD07 or LD21
 app.get('/representatives/congressional-districts', cors(), function (req, res) {
-	query = "select cd, first_elected, last_elected, expire_on, term, office, name, party, "
+	query = "select cd as jurisdiction, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " address, town, zip, state, email, facebook, govtrack, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
@@ -341,7 +342,7 @@ app.get('/representatives/congressional-districts', cors(), function (req, res) 
 })
 
 app.get('/representatives/legislative-districts', cors(), function (req, res) {
-	query = "select ld, first_elected, last_elected, expire_on, term, office, name, party, "
+	query = "select ld as jurisdiction, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " address, town, zip, state, email, facebook, govtrack, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
@@ -359,7 +360,7 @@ app.get('/representatives/legislative-districts', cors(), function (req, res) {
 
 
 app.get('/representatives/counties', cors(), function (req, res) {
-	query = "select county, first_elected, last_elected, expire_on, term, office, name, party, "
+	query = "select county as jurisdiction, first_elected, last_elected, expire_on, term, office, name, party, "
 		  + " address, town, zip, state, email, facebook, govtrack, "
 		  + " website, votesmart, propublica, opensecret, twitter, notes"
 		  + " from representatives"
