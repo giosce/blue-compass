@@ -1,0 +1,406 @@
+<html>
+<head>
+<title>BlueCompass.org - 2020 Elections</title>
+<script src="sorttable.js"></script>
+<style type="text/css">	
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}	
+.menu td:hover {
+	background-color: blue; 
+	color: white;
+	text-shadow: -.25px -.25px 0 white, .25px .25px white;
+	cursor: pointer;
+}
+
+.menu td {
+	text-decoration: none;
+	padding: 2px;
+	color: blue;
+}
+
+.aa {
+	text-decoration: none;
+	color: blue;
+	text-shadow: -.25px -.25px 0 transparent, .25px .25px transparent;	
+}
+.aa:hover {
+	color: white;
+	text-shadow: -.25px -.25px 0 white, .25px .25px white;
+}
+
+</style>
+
+<link rel="stylesheet" type="text/css" href="../dropdowntabfiles/ddcolortabs.css" />
+<script type="text/javascript" src="../dropdowntabfiles/dropdowntabs.js"></script>
+
+</head>
+
+<body style="font-family:Arial; font-size:small;">
+
+<div id="bluecompasstab" class="ddcolortabs">
+<ul>
+<li><a href="http://bluecompass.org" title="About Us, Memories" rel="dropmenu_home"><span>Home</span></a></li>
+<li><a href="http://bluecompass.org/elections" title="Registrations, predictions, past results and more" rel="dropmenu_elections"><span>Elections</span></a></li>
+<li><a href="http://bluecompass.org/cd" title="Congressional and Legislative Districts" rel="dropmenu_districts"><span>Districts</span></a></li>
+<li><a href="http://bluecompass.org/party" title="County Committees, Member roles and more" rel="dropmenu_party"><span>Democratic Party Information</span></a></li>
+<li><a href="http://bluecompass.org/myinfo" title="My District, my represantatives, my candidates"><span>My Information</span></a></li>
+<li><a href="http://bluecompass.org/projects" title="Build voter lists for voter outreach projects"><span>Voter Outreach</span></a></li>
+</ul>
+</div>
+<br>
+<div id="dropmenu_home" class="dropmenudiv_a">
+<a href="http://bluecompass.org/aboutus.html">About Us</a>
+<a href="http://bluecompass.org/memories">Memories</a>
+<a href="https://www.facebook.com/bluecompass.org/">Facebook</a>
+<a href="http://bluecompass.org/swagger">API</a>
+<a href="http://bluecompass.org/forum">Forum</a>
+<a href="http://bluecompass.org/blog">Blog</a>
+</div>
+
+<div id="dropmenu_elections" class="dropmenudiv_a">
+<a href="http://bluecompass.org/2021">2021</a> 
+<a href="http://bluecompass.org/2021/candidates.php">  2021 Candidates</a>
+<a href="http://bluecompass.org/2020">2020</a> 
+<a href="http://bluecompass.org/2020/candidates.php">  2020 Candidates</a>
+<a href="http://bluecompass.org/njcongress.html">2019</a>
+<a href="http://bluecompass.org/congress.html">2018</a>
+</div>
+
+<div id="dropmenu_party" class="dropmenudiv_a">
+<a href="http://bluecompass.org/party/committees.php">County Committees</a>
+<a href="http://bluecompass.org/party/comm_seats.php">County Committees Seats</a>
+<a href="https://drive.google.com/open?id=1vwfg4734qTQkKakjXUHpDw4xHFd7ApzB">County Committee Member</a>
+<a href="http://bluecompass.org/party/party_survey.html">Survey</a>
+</div>
+
+<div id="dropmenu_districts" class="dropmenudiv_a">
+<a href="http://bluecompass.org/cd">Congressional Districts</a>
+<a href="http://bluecompass.org/ld">Legislative Districts</a>
+</div>
+
+<center><H2>2020 Elections</H2></center>
+
+<!--
+select *, dem_votes/tot_votes as dem_pct, 
+rep_votes/tot_votes as rep_pct,
+oth_votes/tot_votes as oth_pct,
+tot_votes/popul_over_18 as turnout_pop,
+tot_reg/popul_over_18 as reg_pct,
+tot_votes/tot_reg as turnout_reg
+from congressional_districts_stats
+order by cd
+-->
+
+<br>
+This year we'll elect the President, 435 House of Representatives seats and 1/3 of the Senate seats.
+<br>
+Currently the Senate is 53R and 47D and the House is 196R and 233D.
+<br>
+<br>
+New Jersey is electing one Senator (of two, representing the whole state) 
+and twelve House of Representatives members (each one representing one <a href="http://bluecompass.org/cd">NJ Congressional District</a>).
+<br>
+<br>
+There are a multitude of NJ local elections: Most counties elect some of the Freeholders while some elect their County Clerk or Sheriff or Surrogate. 
+<br>
+12 counties also elect their Democratic County Committee members, a role that we consider the main bridge between citizens and the political parties.
+<br>
+<br>
+<b>You can see the list of federal and county offices candidates <a href="http://bluecompass.org/2020/candidates.php">here</a>.</b>
+<br>
+<br>
+Finally, there are many municipal elections (to council, committee, mayor seats) as well as school boards and other local elections.
+<br>
+<br>
+<hr>
+<br>
+NJ has been a big part of the 2018 "Blue Wave", you can see how the NJ Congressional delegation has changed from 2016 to 2018.
+<BR>
+<BR>
+<center>
+<table><tr><td><b>2016</b></td><td width="200px"></td><td><b>2018</b></td></tr></table>
+<img src="../NJ-BlueWave-2016-2018.jpg" width="460" height="340">
+</center>
+<br>
+<!--
+Below are the at glance results of the 2018 Congressional Elections
+<BR>
+<i>Population=Census Estimate of population 18 years old and over; Turnout = Total Votes / Population</i>
+<BR>
+<table>
+<tr>
+<td>
+<table border="1" class="sortable">
+<tr><th>District</th><th>Dem Candidate</th><th>Dem Votes</th><th>%</th><th>Rep Candidate</th><th>Rep Votes</th><th>%</th><th>Other Votes</th><th>%</th><th>Shift</th><th>Total Votes</th><th>Population</th><th>Turnout Pop</th><th>Registered Voters</th><th>Reg Voters%</th><th>Turnout Reg Voters</th></tr>
+
+<tr><td bgcolor="#AED6F1">NJ01</td><td><b>Donald Norcross</b></td><td align="right">169,628</td><td>64.39%</td><td>Paul Dilks</td><td align="right">87,617</td><td>33.26%</td><td align="right">6,173</td><td>2.34%</td><td>D+8</td><td align="right">263,418</td><td>566,702</td><td>46.48%</td><td>516,391
+</td><td>91.12%</td><td>51.01%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ02</td><td>Jeff Van Drew</td><td align="right">136,685</td><td>52.90%</td><td>Seth Grossman</td><td align="right">116,866</td><td>45.23%</td><td align="right">4,812</td><td>1.86%</td><td>D+28</td><td align="right">258,363</td><td>561,659</td><td>46.00%</td><td>499,199</td><td>88.88%</td><td>51.76%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ03</td><td>Andy Kim</td><td align="right">153,473</td><td>51.74%</td><td><b>Tom MacArthur</b></td><td align="right">149,500</td><td>48.72%</td><td align="right">3,902</td><td>1.27%</td><td>D+22</td><td align="right">306,875</td><td>593,136</td><td>51.74%</td><td>532,137</td><td>89.72%</td><td>57.67%</td></tr>
+
+<tr><td bgcolor="#EC7063">NJ04</td><td>Joshua Welle</td><td align="right">126,766</td><td>43.07%</td><td><b>Chris Smith</b></td><td align="right">163,065</td><td>55.40%</td><td align="right">4,517</td><td>1.53%</td><td>D+18</td><td align="right">294,348</td><td>576,584</td><td>51.05%</td><td>528146</td><td>91.60%</td><td>55.73%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ05</td><td><b>Josh Gottheimer</b></td><td align="right">169,546</td><td>56.17%</td><td>John McCann</td><td align="right">128,255</td><td>42.49%</td><td align="right">4,022</td><td>1.33%</td><td>D+7</td><td align="right">301,823</td><td>579,702</td><td>52.07%</td><td>525,842</td><td>90.71%</td><td>57.40%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ06</td><td><b>Frank Pallone</b></td><td align="right">140,752</td><td>63.63%</td><td>Richard Pezzullo</td><td align="right">80,443</td><td>36.37%</td><td align="right">0</td><td></td><td>R+2</td><td align="right">221,195</td><td>583,153</td><td>37.93%</td><td>456,727</td><td>78.32%</td><td>48.43%</td></tr>
+
+<tr><td bgcolor="#AED6F1"><a href="nj7"><b>NJ07</b></a></td><td>Tom Malinowski</td><td align="right">166,985</td><td>51.74%</td><td><b>Leonard Lance</b></td><td align="right">150,785</td><td>46.72%</td><td align="right">4,972</td><td>1.54%</td><td>D+16</td><td align="right">322,742</td><td>584,209</td><td>52.24%</td><td>541,973</td><td>92.77%</td><td>59.55%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ08</td><td><b>Albio Sires</b></td><td align="right">119,881</td><td>78.12%</td><td>John Muniz</td><td align="right">28,725</td><td>18.72%</td><td align="right">4,849</td><td>3.16%</td><td>0</td><td align="right">153,455</td><td>610,595</td><td>25.13%</td><td>390,313</td><td>63.92%</td><td>39.32%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ09</td><td><b>Bill Pascrell</b></td><td align="right">140,832</td><td>70.27%</td><td>Eric Fisher</td><td align="right">57,854</td><td>28.87%</td><td align="right">1,730</td><td>0.86%</td><td>R+1</td><td align="right">200,416</td><td>600,702</td><td>33.36%</td><td>443,388</td><td>73.81%</td><td>45.20%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ10</td><td><b>Donald Payne Jr.</b></td><td align="right">175,253</td><td>87.56%</td><td>Agha Khan</td><td align="right">20,191</td><td>10.09%</td><td align="right">4,715</td><td>2.36%</td><td>D+3</td><td align="right">200,159</td><td>598,914</td><td>33.42%</td><td>461,122</td><td>76.99%</td><td>43.41%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ11</td><td>Mikie Sherrill</td><td align="right">183,684</td><td>56.77%</td><td>Jay Webber</td><td align="right">136,322</td><td>42.13%</td><td align="right">3,568</td><td>1.10%</td><td>D+33</td><td align="right">323,574</td><td>579,362</td><td>55.85%</td><td>557,552</td><td>96.24%</td><td>58.03%</td></tr>
+
+<tr><td bgcolor="#AED6F1">NJ12</td><td><b>Bonnie Watson Coleman</b></td><td align="right">173,334</td><td>68.68%</td><td>Daryl Kipnis</td><td align="right">79,041</td><td>31.32%</td><td align="right">0</td><td></td><td>D+6</td><td align="right">252,375</td><td>592,130</td><td>42.62%</td><td>484,642</td><td>81.85%</td><td>52.07%</td></tr>
+
+<tr style="font-weight:bold"><td>Total</td><td></td><td align="right">1,856,819</td><td>59.92%</td><td></td><td align="right">1,198,664
+</td><td>38.68%</td><td align="right">43,260</td><td>1.40%</td><td></td><td align="right">3,098,743</td><td>7,026,848</td><td>44.10%</td><td>5,937,432</td><td>84.50%</td><td>52.19%</td></tr>
+
+
+</table>
+-->
+<hr>
+The NJ election for the House of Representatives landscape is sketched in the table below, 
+<a href="http://bluecompass.org/2020/candidates.php">see more details about the candidates</a> or click on the district number to see more district details.
+<br>
+<br>
+It should be added that one of the two Senate NJ seats is up for re-election, it is a "Solid D", incumbent Cory Booker is favored although he has a primary challenger.
+<br>
+For the Presidential election, NJ carries 14 Electoral College and given the "winner takes all" (undemocratic) election rules, they are predicted to be all Democratic.
+<br>
+<br>
+<table border="1" class="sortable">
+<tr>
+	<th>District</th>
+	<th>Incumbent</th>
+	<th>Won by</th>
+	<th>Terms</th>
+	<th>Dem Primary</th>
+	<th>Rep Primary</th>
+	<th>Politico</th>
+	<th>538</th>
+	<th>Cook</th>
+	<th>270ToWin</th>
+	<th>Registered D</th>
+	<th>Register R</th>
+	<th>Register I</th>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ01</td>
+	<td>Donald Norcross</td>
+	<td>31.13%</td>
+	<td>4</td>
+	<td>N</td>
+	<td>N</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">241,541</td>  
+	<td align="right">89,905</td>
+	<td align="right">199,407</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ02</td>
+	<td>Jeff Van Drew</td>
+	<td>7.67%</td>
+	<td>1</td>
+	<td>Y</td>
+	<td>Y</td>
+	<td>Lean R</td>
+	<td></td>
+	<td>Lean R</td>
+	<td>Lean R</td>
+	<td align="right">159,505</td>  
+	<td align="right">142,978</td>
+	<td align="right">204,514</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ03</td>
+	<td>Andy Kim</td>
+	<td>3.02%</td>
+	<td>1</td>
+	<td>N</td>
+	<td>Y</td>
+	<td>Toss Up</td>
+	<td></td>
+	<td>Toss Up</td>
+	<td>Toss Up</td>
+	<td align="right">166,655</td>  
+	<td align="right">155,458</td>
+	<td align="right">217,330</td>
+</tr>
+
+<tr>
+	<td bgcolor="#EC7063">NJ04</td>
+	<td>Chris Smith</td>
+	<td>12.33%</td>
+	<td>20</td>
+	<td>Y</td>
+	<td>Y</td>
+	<td>Likely R</td>
+	<td></td>
+	<td>Solid R</td>
+	<td>Toss Up</td>
+	<td align="right">140,867</td>  
+	<td align="right">162,957</td>
+	<td align="right">229,145</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1"><a href="http://bluecompass.org/cd/data/?cd=05">NJ05</a></td>
+	<td>Josh Gottheimer</td>
+	<td>13.68%</td>
+	<td>2</td>
+	<td>Y</td>
+	<td>Y</td>
+	<td>Lean D</td>
+	<td></td>
+	<td>Likely D</td>
+	<td>Likely D</td>
+	<td align="right">165,790</td> 
+	<td align="right">157,389</td>
+	<td align="right">220,059</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1"><a href="http://bluecompass.org/cd/data/?cd=06">NJ06</a></td>
+	<td>Frank Pallone</td>
+	<td>27.26%</td>
+	<td>17</td>
+	<td>Y</td>
+	<td>N</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">190,646</td>
+	<td align="right">79,062</td>
+	<td align="right">197,013</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1"><a href="http://bluecompass.org/cd/data/?cd=07">NJ07</a></td>
+	<td>Tom Malinowski</td>
+	<td>5.02%</td>
+	<td>1</td>
+	<td>N</td>
+	<td>Y</td>
+	<td>Toss Up</td>
+	<td></td>
+	<td>Lean D</td>
+	<td>Lean D</td>
+	<td align="right">169,597</td>
+	<td align="right">168,776</td>
+	<td align="right">219,923</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ08</td>
+	<td>Albio Sires</td>
+	<td>59.40%</td>
+	<td>8</td>
+	<td>Y</td>
+	<td>N</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">224,415</td>
+	<td align="right">39,259</td>
+	<td align="right">147,413</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ09</td>
+	<td>Bill Pascrell</td>
+	<td>41.40%</td>
+	<td>12</td>
+	<td>Y</td>
+	<td>Y</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">201,562</td>
+	<td align="right">67,925</td>
+	<td align="right">181,568</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ10</td>
+	<td>Donald Payne Jr.</td>
+	<td>77.47%</td>
+	<td>5</td>
+	<td>Y</td>
+	<td>N</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">286,023</td>
+	<td align="right">28,386</td>
+	<td align="right">169,752</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ11</td>
+	<td>Mikie Sherrill</td>
+	<td>14.64%</td>
+	<td>1</td>
+	<td>N</td>
+	<td>N</td>
+	<td>Lean D</td>
+	<td></td>
+	<td>Likely D</td>
+	<td>Likely D</td>
+	<td align="right">175,639</td>
+	<td align="right">175,278</td>
+	<td align="right">215,815</td>
+</tr>
+
+<tr>
+	<td bgcolor="#AED6F1">NJ12</td>
+	<td>Bonnie Watson Coleman</td>
+	<td>37.36%</td>
+	<td>3</td>
+	<td>Y</td>
+	<td>N</td>
+	<td>Solid D</td>
+	<td></td>
+	<td>Solid D</td>
+	<td>Solid D</td>
+	<td align="right">218,238</td>
+	<td align="right">78,764</td>
+	<td align="right">199,518</td>
+</tr>
+
+</table>
+<br>
+https://www.politico.com/2020-election/race-forecasts-and-predictions/new-jersey/
+<br>
+https://cookpolitical.com/ratings/house-race-ratings
+<br>
+https://www.270towin.com/2020-house-election/consensus-2020-house-forecast
+
+<BR>
+<br>
+</body>
+
+<script type="text/javascript">
+tabdropdown.init("bluecompasstab", 1);
+</script>
+
+</html>

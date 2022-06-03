@@ -1,0 +1,5 @@
+For LD: 28, 29 (Newark), 31, 33 (Jersey City), any more?
+For CD: 01 (East Greenwich), 02 (East Greenwich, Stafford), 03 (Point Pleasant, Stafford), 04 (Middletown, Point Pleasant), 
+05 (Teaneck),  06 (Old Bridge, Middletown), 
+07 (Scotch Plain, Union), 08 (Newark, Bayonne, Jersey City, Kearny), 09 (Teaneck, Kearny), 
+10 (Bloomfield, Montclair, Newark, West Orange, Bayonne, Jersey City, Union), 11 (Bloomfield, Montclair, West Orange), 12 (Old Bridge, Scotch Plain)  
