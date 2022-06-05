@@ -65,6 +65,8 @@ th, td {
 <center><H2>2020 Federal Congress Elections</H2></center>
 
 <?php
+ini_set('display_errors','off');
+
 include("../db-a.php");
 
 /*

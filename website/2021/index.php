@@ -90,6 +90,8 @@ table.sortable thead {
 <center><H2>2021 State Legislature Election</H2></center>
 
 <?php
+ini_set('display_errors','off');
+
 include("../db-a.php");
 
 $sql = "select * from cd order by cd";

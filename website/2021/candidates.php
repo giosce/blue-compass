@@ -17,6 +17,8 @@
 <body style="font-family:Arial; font-size:small;">
 
 <?php
+ini_set('display_errors','off');
+
 include("../db.php");
 
 include("../menu.html");

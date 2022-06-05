@@ -42,6 +42,8 @@
 <body style="font-family:Arial">
 
 <?php
+ini_set('display_errors','off');
+
 include("../db-a.php");
 
 include("../menu.html");
