@@ -2,6 +2,8 @@
 
 // leg_dist data home page
 
+ini_set('display_errors','off');
+
 include("../../db.php");
 
 $district = $_GET["district"];
@@ -155,7 +157,7 @@ The New Jersey Legislative District <?php echo $ld_id; ?> is made of <?php echo 
 <BR>
 <?php
 $cty = "";
-$cds = [];
+$cds = array();
 
 while($row5 = mysqli_fetch_array($query5)) {
 	if($debug=="y") {

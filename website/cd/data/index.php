@@ -1,5 +1,6 @@
 <?php
 
+ini_set('display_errors','off');
 
 include("../../db.php");
 

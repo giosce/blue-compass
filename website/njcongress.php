@@ -168,7 +168,7 @@ for($i=1; $i<41; $i++) {
 	if($i > 1) {
 		echo "<br>";
 	}
-	echo "<a href='ld/data?ld=".$a."'>LD".$a."</a>";
+	echo "<a href='ld/data/?ld=".$a."'>LD".$a."</a>";
 }
 ?>
 </td>
