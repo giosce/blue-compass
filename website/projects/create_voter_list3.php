@@ -38,7 +38,7 @@ $precinct = $_GET["precinct"];
 $registered_since = $_GET["registered_since"];
 $vbm = $_GET["vbm"];
 
-$sql="SELECT * FROM voter_hist_alpha_view where 1=1";
+$sql="SELECT * FROM voter_hist_alpha_view_2 where 1=1";
 
 if(is_array($age)) {
 	$x = 0;
@@ -171,8 +171,8 @@ $where_clause = substr($sql, strpos($sql, "1=1")+8);
 
 $sql = $sql." order by municipality, ward, cast(precinct as unsigned), street_name, cast(street_num as unsigned), last_name, first_name";
 
-//echo $sql;
-//echo "<BR>";
+echo $sql;
+echo "<BR>";
 
 $query = mysqli_query($conn, $sql);
 
